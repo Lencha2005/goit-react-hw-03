@@ -1,33 +1,41 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React from 'react';
-import { nanoid } from 'nanoid';
+import styles from './ContactForm.module.css';
+import * as Yup from "yup";
+
+const numberRegex =
+  /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+
+const ContactFormSchema = Yup.object().shape({
+  name: Yup.string().min(2, 'Too short!').max(20, 'Too long!').required('Field is required!'),
+  number: Yup.string().matches(numberRegex, "Invalid phone number. Phone must be +380XXXXXXXXX").required('Field is required!'),
+})
 
 const initialValues = {
-  id: nanoid(),
   name: "",
-  number: ""
+  number: "",
 };
-
-
 
 const ContactForm = ({addUser}) => {
   const handleSubmit = (values, actions) => {
-    console.log(values);
     addUser(values);
     actions.resetForm();
-  }
+  };
+
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      <Form>
-        <label>Name
-          <Field type="text" name="name" />
-          <ErrorMessage name="name" component="span" />
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={ContactFormSchema}>
+      <Form className={styles.form}>
+        <label className={styles.label}>
+          <p className={styles.text}>Name</p>
+          <Field className={styles.input} type="text" name="name" />
+          <ErrorMessage className={styles.error} name="name" component="span" />
         </label>
-        <label>Number
-          <Field type="text" name="number" />
-          <ErrorMessage name="number" component="span" />
+        <label className={styles.label}>
+        <p className={styles.text}>Number</p>
+          <Field className={styles.input} type="text" name="number" />
+          <ErrorMessage className={styles.error} name="number" component="span" />
         </label>
-        <button type="button">Add contact</button>
+        <button className={styles.btn} type="submit">Add contact</button>
       </Form>
     </Formik>
   )

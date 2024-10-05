@@ -1,5 +1,5 @@
 .wrap {
-    width: 400px;
+    width: 300px;
     border: 2px solid white;
     border-radius: 5px;
     display: flex;
@@ -15,7 +15,7 @@ align-items: start;
 }
 
 .btn {
-    width: 120px;
+    width: 100px;
     height: 40px;
     background-color: rgb(53, 50, 50);
 }

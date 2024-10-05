@@ -2,7 +2,7 @@ import React from 'react';
 import Contact from '../Contact/Contact';
 import styles from './ContactList.module.css'
 
-const ContactList = ({users}) => {
+const ContactList = ({users, onDeleteUser}) => {
   return (
     <ul className={styles.list}>
       {users.map(user => {
@@ -11,6 +11,8 @@ const ContactList = ({users}) => {
           <Contact
           name={user.name}
           number={user.number}
+          id={user.id}
+          onDeleteUser={onDeleteUser}
           />
         </li>
       )})}
